@@ -46,9 +46,9 @@ const Home: React.FC = () => {
 
   return (
     <main className="px-2 sm:px-4 max-w-full overflow-hidden">
-      <div className="mt-4 sm:mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      <div className="mt-4 sm:mt-6 md:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Left Column - Input Section */}
-        <div className="md:col-span-1">
+        <div className="lg:col-span-1">
           <div className="card animate-fadeIn shadow-soft">
             <div className="card-header">
               <div className="flex items-center">
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
         </div>
         
         {/* Middle/Right Column - Results Section */}
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           {distributionData && (
             <div className="results-container">
               <ResultsSummaryCard 

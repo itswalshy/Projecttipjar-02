@@ -11,11 +11,18 @@ const FileDropzone: React.FC = () => {
     const partners: Array<{ name: string; hours: number }> = [];
     
     for (const line of lines) {
-      const [name, hoursStr] = line.split(',').map(s => s.trim());
-      const hours = parseFloat(hoursStr);
+      // Handle different CSV formats and clean the data
+      const cleanLine = line.replace(/['"]/g, '').trim();
+      const parts = cleanLine.split(',').map(s => s.trim());
       
-      if (name && !isNaN(hours) && hours > 0) {
-        partners.push({ name, hours });
+      if (parts.length >= 2) {
+        const name = parts[0].trim();
+        const hoursStr = parts[1].trim();
+        const hours = parseFloat(hoursStr);
+        
+        if (name && !isNaN(hours) && hours > 0) {
+          partners.push({ name, hours });
+        }
       }
     }
     
@@ -85,8 +92,21 @@ const FileDropzone: React.FC = () => {
       return;
     }
     
-    setPartnerHours([{ name, hours }]);
+    // Add to existing partners instead of replacing
+    setPartnerHours(prev => [...prev, { name: name.trim(), hours }]);
     alert(`Added ${name} with ${hours} hours.`);
+  };
+
+  const handleSampleData = () => {
+    const samplePartners = [
+      { name: "John Doe", hours: 8.5 },
+      { name: "Jane Smith", hours: 7.0 },
+      { name: "Mike Johnson", hours: 6.5 },
+      { name: "Sarah Wilson", hours: 8.0 },
+      { name: "David Brown", hours: 7.5 }
+    ];
+    setPartnerHours(samplePartners);
+    alert(`Loaded ${samplePartners.length} sample partners!`);
   };
 
   return (
@@ -148,6 +168,18 @@ const FileDropzone: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                   Manual Entry
+                </button>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-2 w-full max-w-sm">
+                <button
+                  onClick={handleSampleData}
+                  className="flex-1 bg-[#dd7895] text-[#364949] hover:bg-opacity-90 transition-all duration-300 inline-flex h-10 justify-center items-center gap-2 whitespace-nowrap font-medium rounded-md px-4 py-2 shadow-md hover:shadow-lg"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Load Sample Data
                 </button>
               </div>
               

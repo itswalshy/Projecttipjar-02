@@ -33,8 +33,8 @@ const PartnerPayoutsList: React.FC<PartnerPayoutsListProps> = ({ distributionDat
                       {partner.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
-                  <div>
-                    <p className="font-medium text-[#f5f5f5]">{partner.name}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-[#f5f5f5] truncate" title={partner.name}>{partner.name}</p>
                     <p className="text-sm text-[#9fd6e9]">{formatHours(partner.hours)}</p>
                   </div>
                 </div>
