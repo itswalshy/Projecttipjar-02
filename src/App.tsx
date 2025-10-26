@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { TipContextProvider } from "./context/TipContext";
@@ -6,10 +6,12 @@ import AppHeader from "./components/AppHeader";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter base="/Projecttipjar-02">
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 
